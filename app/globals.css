@@ -1,0 +1,268 @@
+@import "../styles.css";
+
+/* Next.js page transitions and accessible scroll-triggered reveals. */
+.hero-content {
+  animation: hero-rise 850ms cubic-bezier(.2, .7, .2, 1) both;
+}
+
+.hero-image {
+  animation: hero-zoom 1800ms ease-out both;
+}
+
+.reveal {
+  opacity: 1;
+  transform: none;
+}
+
+.motion-ready .reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 650ms ease, transform 650ms cubic-bezier(.2, .7, .2, 1);
+}
+
+.motion-ready .reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.destination-card[hidden] {
+  display: none;
+}
+
+.trip-book-link {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0 0;
+  border: 0;
+  border-top: 1px solid var(--line);
+  background: transparent;
+  color: var(--accent);
+  font-size: 9px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.trip-book-link span {
+  font-size: 13px;
+}
+
+.trip-book-link:hover {
+  color: var(--text);
+}
+
+.reset-search {
+  border-top: 0;
+  border-right: 0;
+  border-bottom: 1px solid rgba(66, 214, 193, .45);
+  border-left: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.booking-dialog {
+  position: fixed;
+  width: min(500px, calc(100% - 28px));
+  max-width: none;
+  max-height: min(90dvh, 820px);
+  overflow: auto;
+  padding: 35px;
+  border: 1px solid rgba(66, 214, 193, .35);
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: 0 24px 90px rgba(0, 0, 0, .55);
+}
+
+.booking-dialog::backdrop {
+  background: rgba(4, 10, 9, .78);
+  backdrop-filter: blur(5px);
+}
+
+.booking-dialog[open] {
+  animation: dialog-arrive 220ms ease-out both;
+}
+
+.dialog-close {
+  position: absolute;
+  top: 14px;
+  right: 17px;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--text);
+  font-size: 23px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.booking-dialog h2 {
+  margin: 0 0 8px;
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.dialog-trip {
+  margin-bottom: 24px;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.booking-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.booking-form label {
+  display: grid;
+  gap: 5px;
+}
+
+.booking-form label span {
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.booking-form input,
+.booking-form select {
+  width: 100%;
+  min-height: 42px;
+  padding: 0 10px;
+  border: 1px solid var(--line);
+  border-radius: 0;
+  outline-color: var(--accent);
+  background: #131615;
+  color: var(--text);
+  color-scheme: dark;
+  font-size: 11px;
+}
+
+.booking-estimate,
+.booking-disclaimer,
+.form-error,
+.dialog-submit {
+  grid-column: 1 / -1;
+}
+
+.booking-estimate {
+  display: flex;
+  justify-content: space-between;
+  margin: 4px 0 0;
+  padding: 12px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.booking-estimate strong {
+  color: var(--text);
+}
+
+.booking-disclaimer {
+  margin: 0;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.6;
+}
+
+.form-error {
+  margin: -7px 0 0;
+  color: #ff9d8c;
+  font-size: 11px;
+}
+
+.dialog-submit {
+  width: 100%;
+  margin: 0;
+}
+
+.dialog-submit:disabled {
+  cursor: wait;
+  opacity: .7;
+}
+
+.confirmation-dialog {
+  text-align: center;
+}
+
+.confirmation-dialog > p:not(.eyebrow) {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.confirmation-check {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  margin: 0 auto 17px;
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+  color: var(--accent);
+  font-size: 23px;
+}
+
+.confirmation-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 22px 0;
+  padding: 16px;
+  background: #131615;
+  text-align: left;
+}
+
+.confirmation-details span {
+  display: grid;
+  gap: 3px;
+  color: var(--muted);
+  font-size: 9px;
+}
+
+.confirmation-details b {
+  color: var(--text);
+  font-size: 11px;
+}
+
+@keyframes hero-rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes hero-zoom {
+  from { transform: scale(1.04); }
+  to { transform: scale(1); }
+}
+
+@keyframes dialog-arrive {
+  from { opacity: 0; transform: translateY(8px) scale(.99); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@media (max-width: 640px) {
+  .booking-dialog {
+    padding: 29px 20px 22px;
+  }
+
+  .booking-dialog h2 {
+    font-size: 28px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-content,
+  .hero-image {
+    animation: none;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
